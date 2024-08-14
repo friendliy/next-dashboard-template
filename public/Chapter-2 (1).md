@@ -22,6 +22,9 @@ Tambahkan gaya global ke aplikasi Anda dengan menavigasi ke /app/layout.tsx dan 
 
 ```javascript
 // /app/layout.js
+
+import "@/app/ui/global.css";
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
@@ -31,11 +34,11 @@ export default function RootLayout({ children }) {
 }
 ```
 
-Dengan server pengembangan masih berjalan, simpan perubahan Anda dan lihat pratinjau di browser. Halaman beranda Anda sekarang harus terlihat seperti ini:
+Dengan server pengembangan masih berjalan, simpan perubahan Anda dan lihat pratinjau di browser. Halaman beranda Anda sekarang harus terlihat seperti ini:****
 ![alt text](image-2.png)
 Halaman dengan gaya dengan logo 'Acme', deskripsi, dan tautan login.
 
-Tapi tunggu sebentar, Anda tidak menambahkan aturan CSS apa pun, dari mana gaya ini berasal?
+Tapi tunggu **sebentar**, Anda tidak menambahkan aturan CSS apa pun, dari mana gaya ini berasal?
 
 Jika Anda melihat di dalam global.css, Anda akan melihat beberapa direktif @tailwind:
 
@@ -72,7 +75,7 @@ export default function Page() {
   return (
     // Ini adalah kelas Tailwind:
     <main className="flex min-h-screen flex-col p-6">
-      <div className="flex h-20 shrink-0 items-end rounded-lg bg-read-500 p-4 md:h-52">
+      <div className="flex h-20 shrink-0 items-end rounded-lg bg-blue-500 p-4 md:h-52">
     // ...
   )
 }
@@ -117,7 +120,7 @@ import Link from "next/link";
 export default function Page() {
   return (
     <main className="flex flex-col min-h-screen p-6">
-      <div className="flex items-end h-20 p-4 bg-read-500 rounded-lg shrink-0 md:h-52">
+      <div className="flex items-end h-20 p-4 bg-blue-500 rounded-lg shrink-0 md:h-52">
         {/* <AcmeLogo /> */}
       </div>
       <div className="flex flex-col gap-4 mt-4 grow md:flex-row">
@@ -131,7 +134,7 @@ export default function Page() {
           </p>
           <Link
             href="/login"
-            className="flex items-center self-start gap-5 px-6 py-3 text-sm font-medium text-white transition-colors bg-readP-500 rounded-lg hover:bg-blue-400 md:text-base"
+            className="flex items-center self-start gap-5 px-6 py-3 text-sm font-medium text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-400 md:text-base"
           >
             <span>Log in</span>
           </Link>
