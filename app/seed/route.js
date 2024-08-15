@@ -102,14 +102,7 @@ async function seedRevenue() {
 }
 
 export async function GET() {
-  return new Response(
-    JSON.stringify({
-      message:
-        'Uncomment this file and remove this line. You can delete this file when you are finished.',
-    }),
-    { status: 200, headers: { 'Content-Type': 'application/json' } }
-  );
-try {
+  try {
     await client.sql`BEGIN`;
     await seedUsers();
     await seedCustomers();
@@ -120,6 +113,12 @@ try {
     return new Response(JSON.stringify({ message: 'Database seeded successfully' }), { status: 200 });
   } catch (error) {
     await client.sql`ROLLBACK`;
-    return new Response(JSON.stringify({ error }), { status: 500 });
+    return new Response(
+      JSON.stringify({
+        message:
+          'Uncomment this file and remove this line. You can delete this file when you are finished.',
+      }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
   }
 }
