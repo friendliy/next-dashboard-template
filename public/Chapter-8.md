@@ -46,6 +46,7 @@ export async function fetchRevenue() {
   try {
     // Kami sengaja menunda respons untuk tujuan demo.
     // Jangan lakukan ini di produksi :)
+    
     console.log('Fetching revenue data...');
     await new Promise((resolve) => setTimeout(resolve, 3000));
  
