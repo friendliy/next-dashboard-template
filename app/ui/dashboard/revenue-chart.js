@@ -1,19 +1,40 @@
-// /app/ui/dashboard/revenue-chart.jsx
 import { generateYAxis } from '@/app/lib/utils';
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { lusitana } from '@/app/ui/fonts';
-import { fetchRevenue } from '@/app/lib/data'
+import { fetchRevenue } from '@/app/lib/data';
+import { useEffect, useState } from 'react';
 
+export default function RevenueChart() {
+  const [revenue, setRevenue] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-export default async function RevenueChart() { // Jadikan komponen async, hapus props
-  const revenue = await fetchRevenue(); // Ambil data di dalam komponen
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await fetchRevenue();
+        console.log('Revenue Data:', data); // Log data untuk debugging
+        setRevenue(data);
+      } catch (error) {
+        console.error('Error fetching revenue:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-  const chartHeight = 350;
-  const { yAxisLabels, topLabel } = generateYAxis(revenue);
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <p className="mt-4 text-gray-400">Loading data...</p>;
+  }
 
   if (!revenue || revenue.length === 0) {
     return <p className="mt-4 text-gray-400">No data available.</p>;
   }
+
+  const chartHeight = 350;
+  const { yAxisLabels, topLabel } = generateYAxis(revenue);
+
   return (
     <div className="w-full md:col-span-4">
       <h2 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
@@ -46,7 +67,7 @@ export default async function RevenueChart() { // Jadikan komponen async, hapus 
         </div>
         <div className="flex items-center pt-6 pb-2">
           <CalendarIcon className="w-5 h-5 text-gray-500" />
-          <h3 className="ml-2 text-sm text-gray-500 ">Last 12 months</h3>
+          <h3 className="ml-2 text-sm text-gray-500">Last 12 months</h3>
         </div>
       </div>
     </div>
